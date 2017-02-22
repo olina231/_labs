@@ -20,51 +20,51 @@ main:   # Words ending with ':' are **labels**
         # Instruction operands are indented a few spaces, so that the
         #    instruction type is more visible.
       
-        la         $a0, mesg1        # get address of mesg1 into $a0
+        la	$a0, matric        # get address of matric into $a0
         # la is a pseudo-instruction. Notice that is gets converted to 2
         #   instructions after assemblying.
         #   Ignore this detail for now. We'll get back to this later
-        addiu      $v0, $zero, 4     # system service 4: print string
-        syscall                      #   located at address $a0
+        lw	$v0, 4($a0)     # we load the word from $a0 possition 0
+        #syscall                      #   located at address $a0
         # This is a system call. We call the operating system
         #   to display a string for us. Think of it as a special
         #   subroutine.
         
-        addiu      $v0, $zero, 5     # system service 5: read integer
-        syscall                      # integer returned in $v0
+        sw	$v0, 0($a0)     # we save all the word
+        #syscall                      # integer returned in $v0
         
-        add        $s1, $zero, $v0   # $s1 = (read value)
+        add	$s1, $zero, $v0   # $s1 = (read value)
                                      # Note: this just moves the value to
                                      #   a different register
         
-        la         $t0, var1         # $t0 gets the **address** of var1
+        la	$t0, var1         # $t0 gets the **address** of var1
                                      # Note: this is address **not** value of var1
-        lw         $s0, 0($t0)       # $s0 gets the value of var1
-        add        $s0, $s0, $s1     # $s0 = var1 + $s1
-        sw         $s0, 0($t0)       # var1 = var1 + (read value)
+        lw	$s0, 0($t0)       # $s0 gets the value of var1
+        add	$s0, $s0, $s1     # $s0 = var1 + $s1
+        sw 	$s0, 0($t0)       # var1 = var1 + (read value)
         
-        la         $s2, array        # get address of array into $s2
+        la	$s2, array        # get address of array into $s2
                                      # This is called the **base** of the array
-        sw         $s0, 0xc($s2)     # Store $s0 to the 4th element of array
+        sw	$s0, 0xc($s2)     # Store $s0 to the 4th element of array
                                      # Note the use of offset (0xc = 12 = 3*4)
                                      # array[0]  - array + 0
                                      # array[1]  - array + 4
                                      # array[2]  - array + 8
                                      # array[3]  - array + 12
                                      
-        addiu      $t1, $s2, 0x10    # Note: address arithmetic.
+        addiu	$t1, $s2, 0x10    # Note: address arithmetic.
                                      #  Calculates address of 5th element of array
-        la         $t0, var2         # $t0 gets address of var2
-        sw         $t1, 0($t0)       # var 2 = address of 5th element of array 
+        la	$t0, var2         # $t0 gets address of var2
+        sw	$t1, 0($t0)       # var 2 = address of 5th element of array 
                                      # Note: we can store addresses to locations 
                                      #   in memory just like we do with real data!
         
-        la         $t0, var3         # Get address of var 3
-        lb         $s0, 0($t0)       # Get value of var3, sign-extended to 32 bits, to $s0
-        lbu        $s1, 0($t0)       # Get value of var3, zero-extended to 32 bits, to $s1
+        la	$t0, var3         # Get address of var 3
+        lb	$s0, 0($t0)       # Get value of var3, sign-extended to 32 bits, to $s0
+        lbu	$s1, 0($t0)       # Get value of var3, zero-extended to 32 bits, to $s1
         
 exit: 
-        addiu      $v0, $zero, 10    # system service 10 is exit
+        addiu	$v0, $zero, 10    # system service 10 is exit
         syscall                      # we are outa here.
         
 ###############################################################################
@@ -73,7 +73,7 @@ exit:
         # Usually data are declared before text. Try to follow that convention 
         #     in your other programs
         #  
-matric: .word 0    # This will be used by your submitted code
+matric: .word 2582    # This will be used by your submitted code
 
 mesg1:  .asciiz "Enter matriculation number: "
         # Data can have labels too, so we can refer to them

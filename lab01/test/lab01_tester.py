@@ -13,11 +13,11 @@ else:
   ##########################################
   marsJar = "/home/efthym/t/ca_course/MarsMYY402_4_5.jar"
 
-matric = 1000
+matric = 2582
 tests = [ \
  ("Matric simple test",\
   [('^matric:.*$', 'matric: .word %d' %(matric)) ],\
-  {'s0' : -1, 's1' : 0x00ff, 's2' : 0x1001002c, 't0' : 0x10010050},\
+  {'s0' : 0xfffff, 's1' : 0x000000ff, 's2' : 0x1001002c, 't0' : 0x10010050},\
   {'var1' : matric+1, 0x10010038 : matric+1, 'var2' : 0x1001003c }\
  ) \
 ]
